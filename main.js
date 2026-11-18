@@ -70,3 +70,5 @@ handleCartEvent(1);
 
 console.log(cart);
 console.log(calculateTotal());
+
+console.log("Hi");
