@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Shopping Cart System</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="left-nav-container">
+        <p class="brand-name">LUCCi.</p>
+        <p class="main-text">Find your next favorite.</p>
+        <p class="subtitle">Simple essentials for everyday living</p>
+      </div>
+      <div class="right-nav-container">
+        <p>Shop now.</p>
+      </div>
+    </nav>
+    <main class="main-container">
+      <div class="item" id="keyboard" data-id="1">
+        <img src="img/keyboard.png" alt="" class="image" />
+        <div class="item-details">
+          <p class="product-name">Keyboard</p>
+          <p class="price">₱1,099.00</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="item" id="earbuds" data-id="2">
+        <img src="img/earbuds.png" alt="" class="image" />
+        <div class="item-details">
+          <p class="product-name">Earbuds</p>
+          <p class="price">₱199.00</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="item" id="mouse" data-id="3">
+        <img src="img/mouse.png" alt="" class="image" />
+        <div class="item-details">
+          <p class="product-name">Mouse</p>
+          <p class="price">₱645.00</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="item" id="smart-watch" data-id="4">
+        <img src="img/smart-watch.png" alt="" class="image" />
+        <div class="item-details">
+          <p class="product-name">Smart Watch</p>
+          <p class="price">₱5,999.00</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="item" id="earphones" data-id="5">
+        <img src="img/earphones.png" alt="" class="image" />
+        <div class="item-details">
+          <p class="product-name">Headphones</p>
+          <p class="price">₱2,599.00</p>
+          <button class="add-to-cart-btn">Add to Cart</button>
+        </div>
+      </div>
+    </main>
+    <div class="cart-outer-container">
+      <div class="cart-container">
+        <div class="cart-head">
+          <h2>Your Cart</h2>
+          <p class="item-counter">0 items</p>
+        </div>
+      </div>
+      <div class="checkout-container">
+        <h2>Order Summary</h2>
+        <div class="checkout-details">
+          <div class="checkout-row">
+            <span>Subtotal</span>
+            <span class="subtotal">₱0.00</span>
+          </div>
+          <div class="checkout-row">
+            <span>Shipping Fee</span>
+            <span>₱50.00</span>
+          </div>
+        </div>
+        <hr />
+        <div class="checkout-total">
+          <h3>Total</h3>
+          <h3 class="total">₱0.00</h3>
+        </div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+        <p class="checkout-note">
+          Your order details will be reviewed before confirmation.
+        </p>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
