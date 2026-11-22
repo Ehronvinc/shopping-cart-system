@@ -340,6 +340,7 @@ function checkout() {
     item.remove();
   });
 
+  renderItemCount();
   renderSubTotal();
   renderTotal();
 
