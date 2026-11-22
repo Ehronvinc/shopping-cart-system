@@ -24,6 +24,7 @@ const products = [
 ];
 
 let cart = [];
+let itemCtr = 0;
 
 function handleCartEvent(e) {
   if (e.target.classList.contains("add-to-cart-btn")) {
@@ -34,8 +35,11 @@ function handleCartEvent(e) {
     if (isInCart) {
       console.log("item already exists");
     } else {
+      increaseItem();
+      renderItemCount();
       handleAddCart(productId);
       createCartCard(productId);
+      renderDisabledButton(productId);
       renderSubTotal();
       renderTotal();
     }
@@ -55,6 +59,20 @@ function handleCartDuplicates(productId) {
     return item.id === productId;
   });
   return isInCart;
+}
+
+function renderItemCount() {
+  const itemCount = document.querySelector(".item-counter");
+
+  itemCount.textContent = `${itemCtr} item/s`;
+}
+
+function increaseItem() {
+  itemCtr++;
+}
+
+function decreaseItem() {
+  itemCtr--;
 }
 
 function createCartCard(productId) {
@@ -121,9 +139,9 @@ function createImagecont(productId) {
 
 function createBtnCont(productId) {
   const btnContainer = document.createElement("div");
+  const quantity = createQuantity(productId);
   const decreaseBtn = createDecreaseBtn(productId);
   const increaseBtn = createIncreaseBtn(productId);
-  const quantity = createQuantity(productId);
 
   btnContainer.classList.add("btn-container-qty");
 
@@ -132,11 +150,13 @@ function createBtnCont(productId) {
   return btnContainer;
 }
 
+// Quantity Buttons
+
 function createDecreaseBtn(productId) {
   const decreaseBtn = document.createElement("button");
   decreaseBtn.classList.add("decrease-btn");
-
   decreaseBtn.textContent = "-";
+  decreaseBtn.id = `decrease-${productId}`;
 
   decreaseBtn.addEventListener("click", () => {
     decreaseQty(productId);
@@ -145,6 +165,18 @@ function createDecreaseBtn(productId) {
   });
 
   return decreaseBtn;
+}
+
+function renderDisabledButton(productId) {
+  const button = document.querySelector(`#decrease-${productId}`);
+
+  if (button) {
+    cart.forEach((item) => {
+      if (item.id === productId) {
+        button.disabled = item.qty <= 1;
+      }
+    });
+  }
 }
 
 function createIncreaseBtn(productId) {
@@ -161,6 +193,8 @@ function createIncreaseBtn(productId) {
 
   return increaseBtn;
 }
+
+// Quantity
 
 function createQuantity(productId) {
   const quantity = document.createElement("p");
@@ -191,18 +225,18 @@ function increaseQty(id) {
     }
   });
 
+  renderDisabledButton(id);
   renderQuantity(id);
 }
 
 function decreaseQty(id) {
   cart.forEach((item) => {
     if (item.id === id) {
-      if (id > 0) {
-        item.qty--;
-      }
+      item.qty--;
     }
   });
 
+  renderDisabledButton(id);
   renderQuantity(id);
 }
 
@@ -245,6 +279,8 @@ function createRemoveBtn(productId) {
 
   removeBtn.addEventListener("click", (e) => {
     removeItem(productId, e);
+    decreaseItem();
+    renderItemCount();
   });
 
   return removeBtn;
@@ -281,10 +317,13 @@ function renderSubTotal() {
 }
 
 function renderTotal() {
+  const shippingFee = 50;
+  const card = cartContainer.querySelector(".cart-card");
   const total = document.querySelector(".total");
-  const calculatedTotal = (total.textContent = `₱0.00`)
-    ? calculateSubTotal()
-    : calculateSubTotal() + 50;
+  const calculatedTotal = card
+    ? calculateSubTotal() + shippingFee
+    : calculateSubTotal();
+
   const formattedAmount = `₱${calculatedTotal.toLocaleString("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -295,6 +334,7 @@ function renderTotal() {
 
 function checkout() {
   const card = cartContainer.querySelectorAll(".cart-card");
+  itemCtr = 0;
   cart = [];
   card.forEach((item) => {
     item.remove();
